@@ -1,20 +1,31 @@
 const initState = {
-    posts: [
-        { id: "1", title: "Post 1", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur enim ligula, eleifend nec lacinia sed, hendrerit vel sem. In congue enim quis odio dictum, ac ullamcorper quam tempus. Curabitur facilisis, lacus quis varius ornare, sapien tortor eleifend leo, at interdum ex enim eget enim. Mauris varius erat a metus consequat, ut pretium eros faucibus. Suspendisse finibus velit arcu, at pellentesque diam facilisis ut. Integer id mollis est. Nulla congue venenatis sodales." },
-        { id: "2", title: "Post 2", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur enim ligula, eleifend nec lacinia sed, hendrerit vel sem. In congue enim quis odio dictum, ac ullamcorper quam tempus. Curabitur facilisis, lacus quis varius ornare, sapien tortor eleifend leo, at interdum ex enim eget enim. Mauris varius erat a metus consequat, ut pretium eros faucibus. Suspendisse finibus velit arcu, at pellentesque diam facilisis ut. Integer id mollis est. Nulla congue venenatis sodales." },
-        { id: "3", title: "Post 3", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur enim ligula, eleifend nec lacinia sed, hendrerit vel sem. In congue enim quis odio dictum, ac ullamcorper quam tempus. Curabitur facilisis, lacus quis varius ornare, sapien tortor eleifend leo, at interdum ex enim eget enim. Mauris varius erat a metus consequat, ut pretium eros faucibus. Suspendisse finibus velit arcu, at pellentesque diam facilisis ut. Integer id mollis est. Nulla congue venenatis sodales." }
-    ]
+    loggedIn: false,
+    posts: []
 }
 
 const rootReducer = (state = initState, action) => {
-    if (action.type === "DELETE_POST") {
+    switch (action.type) {
+        case "DELETE_POST":
         let newPosts = state.posts.filter(post => post.id !== action.id)
         return {
             ...state,
             posts: newPosts
         }
+
+        case "ADD_POST":
+        let newPost = {
+            id: action.post.id,
+            title: action.post.title,
+            body: action.post.body
+        }
+        return {
+            ...state,
+            posts: state.posts.concat(newPost)
+        }
+
+        default:
+        return state
     }
-    return state
 }
 
 export default rootReducer

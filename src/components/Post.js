@@ -12,7 +12,7 @@ class Post extends Component {
         const post = this.props.post ? ( // get post from props
             <div className="post">
                 <h4 className="center">{this.props.post.title}</h4>
-                <p className="flow-text">{this.props.post.body}</p>
+                <p>{this.props.post.body}</p>
                 <div className="center">
                     <button className="btn grey" onClick={this.handleClick}>
                         Delete Post
@@ -24,7 +24,7 @@ class Post extends Component {
 
         return (
             <div className="container">
-                <h4>{post}</h4>
+                {post}
             </div>
         )
     }
