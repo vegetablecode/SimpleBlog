@@ -7,7 +7,9 @@ class AddPost extends Component {
 
     state = {
         postsHaveBeenLoaded: false,
-        posts: []
+        posts: [],
+        customTitle: "",
+        customBody: ""
     }
 
     componentWillMount() {
@@ -23,8 +25,8 @@ class AddPost extends Component {
         e.preventDefault()
         let newPost = {
             id: Date.now().toString(),
-            title: "wdwd",
-            body: "wdwd"
+            title: this.state.customTitle,
+            body: this.state.customBody
         }
         this.props.addPost(newPost)
         this.props.history.push("/")
@@ -45,6 +47,11 @@ class AddPost extends Component {
                 postsHaveBeenLoaded: true
             })
         }
+    }
+
+    handleChange = (event) => {
+        const {name, value} = event.target
+        this.setState({ [name]: value })
     }
 
     render() {
@@ -70,13 +77,18 @@ class AddPost extends Component {
                         <span>Enter a title:</span>
                         <input
                             type="text"
-                            name="postTitle"
+                            value={this.state.customTitle}
+                            name="customTitle"
                             placeholder="Post title"
+                            onChange={this.handleChange}
                         />
                         <span>Enter a post body:</span>
                         <textarea className="materialize-textarea"
-                            name="postBody"
+                            type="text"
+                            value={this.state.customBody}
+                            name="customBody"
                             placeholder="Post body"
+                            onChange={this.handleChange}
                         />
 
                         <button className="btn green modernButton" onClick={e => this.handleAddPost(e)}>
